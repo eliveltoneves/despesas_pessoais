@@ -1,16 +1,33 @@
-# despesas
+# Despesas Pessoais App
 
-A new Flutter project.
+## Visão Geral
 
-## Getting Started
+O Despesas Pessoais App é uma aplicação desenvolvida em Flutter que permite aos usuários registrar suas despesas diárias, exibir um gráfico mostrando o percentual gasto ao longo da semana e excluir despesas quando necessário. O aplicativo é uma excelente demonstração de conceitos avançados, incluindo árvore de widgets, classes e herança, mapeamento de dados para widgets, uso de listas, integração com bibliotecas externas, aplicação de temas e responsividade.
 
-This project is a starting point for a Flutter application.
+## Recursos Principais
 
-A few resources to get you started if this is your first Flutter project:
+- **Cadastro de Despesas:** Os usuários podem adicionar facilmente novas despesas, incluindo detalhes como nome, valor e data.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Exclusão de Despesas:** Funcionalidade intuitiva para excluir despesas indesejadas.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Gráfico de Despesas Semanal:** Um gráfico visualmente atraente que mostra o percentual de despesas em relação ao total gasto ao longo da semana.
+
+- **Conceitos Avançados do Flutter:**
+  - Árvore de Widgets: Organização eficiente da interface do usuário.
+  - Classes e Herança: Uso de estrutura orientada a objetos para uma arquitetura mais robusta.
+  - Mapeamento de Dados para Widgets: Dinamismo na exibição de dados na interface.
+  - Lista: Gerenciamento eficiente de registros de despesas.
+  - Bibliotecas Externas: Integração de bibliotecas externas para funcionalidades específicas.
+  - Conceitos de Theme: Aplicação de temas para uma experiência de usuário consistente.
+  - Responsividade: Adaptação da interface para diferentes tamanhos de tela.
+
+## Instalação
+
+Para executar o aplicativo localmente, siga estas etapas:
+
+1. Certifique-se de ter o Flutter instalado em sua máquina. Se não, [instale o Flutter](https://flutter.dev/docs/get-started/install).
+
+2. Clone este repositório:
+
+   ```bash
+   git clone https://github.com/seu-usuario/despesas_pessoais_app.git
