@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class ChartBar extends StatelessWidget {
@@ -26,8 +25,8 @@ class ChartBar extends StatelessWidget {
             child: Text(value.toStringAsFixed(2))
           ),
         ),
-        SizedBox(height: 5),
-        Container(
+        const SizedBox(height: 5),
+        SizedBox(
           height: 60,
           width: 10,
           child: Stack(
@@ -39,7 +38,7 @@ class ChartBar extends StatelessWidget {
                     color: Colors.grey,
                     width: 1.0,
                   ),
-                  color: Color.fromRGBO(220, 220, 220, 1),
+                  color: const Color.fromRGBO(220, 220, 220, 1),
                   borderRadius: BorderRadius.circular(5)
                 ),
               ),
@@ -55,7 +54,7 @@ class ChartBar extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(label),
       ],
     );

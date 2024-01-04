@@ -50,20 +50,20 @@ class _TransactionFormState extends State<TransactionForm> {
           TextField(
             controller: _titleController,
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Título',
             ),
           ),
           TextField(
             controller: _valueController,
             textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             onSubmitted: (value) => _submitForm(),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Valor (R\$)',
             ),
           ),
-          Container(
+          SizedBox(
             height: 70,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +77,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   ),
                 ),
                 TextButton(
-                    onPressed: _showDatePicker, child: Text('Selecionar Data'))
+                    onPressed: _showDatePicker, child: const Text('Selecionar Data'))
               ],
             ),
           ),
@@ -87,8 +87,8 @@ class _TransactionFormState extends State<TransactionForm> {
               ElevatedButton(
                 onPressed: _submitForm,
                 style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.purple)),
-                child: Text('Nova Transação'),
+                    backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 189, 152, 195))),
+                child: const Text('Nova Transação', ),
               ),
             ],
           )
