@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:despesas/components/chart.dart';
 import 'package:despesas/components/transaction_form.dart';
 import 'package:despesas/components/transaction_list.dart';
 import 'package:despesas/controller/transaction_controller.dart';
-import 'package:despesas/models/transaction_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:flutter/material.dart';
@@ -16,13 +18,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final transactionController = TransactionController();
-  final List<Transaction> _transactions = [];
-
-  List<Transaction> get _recentTransactions {
-    return _transactions.where((tr) {
-      return tr.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
-    }).toList();
-  }
+  bool _showChart = false;
 
   _addTransaction(String title, double value, DateTime date) {
     transactionController.addTransaction(title, value, date);
@@ -39,44 +35,109 @@ class _HomepageState extends State<Homepage> {
         builder: (_) {
           return TransactionForm(_addTransaction);
         });
+  } 
+
+  Widget _getIconButton(IconData icon, Function() fn) {
+    return Platform.isIOS
+      ? GestureDetector(onTap: fn, child: Icon(icon))
+      : IconButton(onPressed: fn, icon: Icon(icon));
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
-        actions: [
-          IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: const Icon(Icons.add))
-        ],
-      ),
-      body: SingleChildScrollView(
+    final mediaQuery = MediaQuery.of(context);
+    bool islandscape = mediaQuery.orientation == Orientation.landscape;
+    final actions = [
+      if (islandscape)
+          _getIconButton(
+            _showChart ? Icons.list : Icons.show_chart,
+             () {
+                setState(() {
+                  _showChart = !_showChart;
+                });
+              },
+             ),
+        _getIconButton(
+          Platform.isIOS ? CupertinoIcons.add : Icons.add,
+          () => _openTransactionFormModal(context),
+        ),
+    ];
+
+    final  appBar = AppBar(
+      title: const Text('Despesas Pessoais'),
+      actions: actions
+    );    
+
+    final availableHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
+
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Observer(
-              builder: (_) {
-                return Chart(transactionController.recentTransactions);
-              },
-            ),
-            Observer(
-              builder: (context) =>
-                  TransactionList(
-                  transactions: transactionController.transactions,
-                  onRemove: _removeTrasnsaction,
-                  transactionController: transactionController
-                )              
-              
-            ),
+            /*opcao para mostrar grafico em landscape com switch
+             if (islandscape)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Exibir Gráfico'),
+                    Switch.adaptive(
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                        value: _showChart,
+                        onChanged: (value) {
+                          setState(() {
+                            _showChart = value;
+                          });
+                        }),
+                  ],
+                )*/
+            if (_showChart || !islandscape)
+              SizedBox(
+                height: availableHeight * (islandscape ? 0.9 : 0.25),
+                child: Observer(
+                  builder: (_) {
+                    return Chart(transactionController.recentTransactions);
+                  },
+                ),
+              ),
+            if (!_showChart || !islandscape)
+              SizedBox(
+                height: availableHeight * (islandscape ? 1 : 0.75),
+                child: Observer(
+                    builder: (context) => TransactionList(
+                        transactions: transactionController.transactions,
+                        onRemove: _removeTrasnsaction,
+                        transactionController: transactionController)),
+              ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _openTransactionFormModal(context),
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: const Text('Despesas Pessoais'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: actions
+              ),
+            ),
+            child: bodyPage,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: bodyPage,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    onPressed: () => _openTransactionFormModal(context),
+                    child: const Icon(Icons.add),
+                  ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+          );
   }
 }

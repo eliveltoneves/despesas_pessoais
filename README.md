@@ -19,7 +19,8 @@ O Despesas Pessoais App é uma aplicação desenvolvida em Flutter que permite a
   - Lista: Gerenciamento eficiente de registros de despesas.
   - Bibliotecas Externas: Integração de bibliotecas externas para funcionalidades específicas.
   - Conceitos de Theme: Aplicação de temas para uma experiência de usuário consistente.
-  - Responsividade: Adaptação da interface para diferentes tamanhos de tela.
+  - Responsividade: Adaptação da interface para diferentes tamanhos de telas e aparelhos android ou ios.
+  - Gerenciamento de Estado com MobX: Utilizamos a biblioteca MobX para gerenciar o estado do aplicativo de forma eficiente. MobX é uma solução de gerenciamento de estado reativa que simplifica a atualização e observação de dados na sua aplicação Flutter.
 
 ## Instalação
 
